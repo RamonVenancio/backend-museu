@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
-const Usuarios = require('Usuarios')
+const usuarios = require('./routes/user')
+const visitante = require('./routes/visitors')
 
 const app = express()
 app.use(express.json())
@@ -14,7 +15,7 @@ app.get("/ping", (req,res)=>{
     }
 })
 
-app.use("/user", User)
+app.use("/user", usuarios)
+app.use("/visitors", visitante)
 
-
-app.listen(3340,()=>{console.log('Servidor rodando na porta 3340')})
+app.listen(3003,()=>{console.log('Servidor rodando na porta 3003')})

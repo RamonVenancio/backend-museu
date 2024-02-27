@@ -1,13 +1,11 @@
 const express = require('express')
-const Usuarios = express.Router()
-const getUser = require('getUser')
+const usuarios = express.Router()
+const userController = require('../controller/userController')
 
-Usuarios.get("/",async (req,res)=>{
-    res.send(await getUser())
+usuarios.get("/",async (req,res)=>{
+    res.send(await userController.getUser())
 })
 
-Usuarios.post("/",(req,res)=>{})
+// Usuarios.post("/",(req,res)=>{})
 
-module.exports({
-    Usuarios
-})
+module.exports = usuarios

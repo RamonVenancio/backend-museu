@@ -6,7 +6,7 @@ const execute = async (SQL)=> {
         user: "root",
         password: "1234",
         database: "museu",
-        port: 3306
+        port: 3307
     })
 
     let [results] = await connection.query(SQL)
@@ -14,6 +14,6 @@ const execute = async (SQL)=> {
     return results
 }
 
-module.exports({
+module.exports = {
     execute
-})
+};
