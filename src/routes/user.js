@@ -6,6 +6,8 @@ usuarios.get("/",async (req,res)=>{
     res.send(await userController.getUser())
 })
 
-// Usuarios.post("/",(req,res)=>{})
+usuarios.post("/login", async (req,res)=>{
+    res.send(await userController.login(req.body))
+})
 
 module.exports = usuarios
