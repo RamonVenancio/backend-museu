@@ -42,7 +42,27 @@ const login = async (data)=> {
     }
 }
 
+const results = async (data)=> {
+   try {
+    const generos = await db.execute("SELECT genero, COUNT(*) AS total  FROM visitors  GROUP BY genero DESC;");
+    const cidade = await db.execute("SELECT cidade, COUNT(*) AS total  FROM visitors  GROUP BY cidade DESC;");
+    const idade = await db.execute("SELECT idade, COUNT(*) AS total  FROM visitors  GROUP BY idade DESC;");
+    const profissao = await db.execute("SELECT profissao, COUNT(*) AS total  FROM visitors  GROUP BY profissao DESC;");
+    const estado = await db.execute("SELECT estado, COUNT(*) AS total  FROM visitors  GROUP BY estado DESC;");
+    const output = {generos, cidade, idade, profissao, estado}
+    return output
+
+   } catch (error) {
+        if(error instanceof Error){
+            return {message: error.message}
+        }else{
+            return{message: error.message}
+        }
+   }
+}
+
 module.exports = {
     getUser,
-    login
+    login,
+    results
 };

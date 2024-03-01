@@ -11,7 +11,12 @@ const getVisitor = async ()=> {
 
 const createVisitor = async (data)=> {
         console.log(data)
-        const {nome, cpf, genero, idade, profissão, cidade, estado} = data
+        const {nome, cpf, genero, idade, profissao, cidade, estado} = data
+        if (profissao){
+            if(typeof profissao !== 'string' ){
+                throw new Error("'profissao'- deve ser enviado em formato string!")
+            }
+        }
         if (!nome){
             throw new Error("'nome' - é um campo obrigatório")
         }
@@ -49,11 +54,19 @@ const createVisitor = async (data)=> {
             throw new Error("'estado' - deve ser enviado no formato string")
         }
 
-        await db.execute(`INSERT INTO visitors(nome, cpf, genero, idade, cidade, estado, created_at)
+        if (profissao) {
+            await db.execute(`INSERT INTO visitors(nome, cpf, genero, idade, profissao, cidade, estado, created_at)
         VALUES 
-        ('${nome}','${cpf}','${genero}','${idade}','${cidade}','${estado}','${new Date().toISOString()}');
+        ('${nome}','${cpf}','${genero}','${idade}','${profissao}','${cidade}','${estado}','${new Date().toISOString()}');
         `)
-}
+        }else{
+            await db.execute(`INSERT INTO visitors(nome, cpf, genero, idade, cidade, estado, created_at)
+        VALUES 
+        ('${nome}','${cpf}','${genero}','${idade}', '${cidade}','${estado}','${new Date().toISOString()}');
+        `)    
+        }
+
+    }
 
 const deleteVisitor = async (id)=> {
     if(!id){
