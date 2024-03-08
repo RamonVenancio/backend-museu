@@ -38,9 +38,9 @@ const createVisitor = async (data)=> {
         if (!idade){
             throw new Error("'idade' - é um campo obrigatório")
         }
-        if (typeof idade !== 'number'){
-            throw new Error("'idade' - deve ser enviado no formato number")
-        }
+        // if (typeof idade !== 'number'){
+        //     throw new Error("'idade' - deve ser enviado no formato number")
+        // }
         if (!cidade){
             throw new Error("'cidade' - é um campo obrigatório")
         }
@@ -52,6 +52,12 @@ const createVisitor = async (data)=> {
         }
         if (typeof estado !== 'string'){
             throw new Error("'estado' - deve ser enviado no formato string")
+        }
+
+        const [exist] = await db.execute(`SELECT * from visitors WHERE cpf = '${cpf}'`);
+
+        if(exist){
+            throw new Error('CPF já cadastrado')
         }
 
         if (profissao) {

@@ -14,6 +14,7 @@ visitante.get("/", async (req, res) =>{
 
 visitante.post("/", async (req, res)=> {
     try {
+        console.log(req.body)
         await visitorController.createVisitor(req.body)
         res.status(201).send('Visitante cadastrado com sucesso 👌')
     } catch (error) {
