@@ -7,7 +7,8 @@ usuarios.get("/",async (req,res)=>{
 })
 
 usuarios.post("/login", async (req,res)=>{
-    res.send(await userController.login(req.body))
+    const result = await userController.login(req.body)
+    res.status(result.statusCode).send(result)
 })
 
 usuarios.get("/results", async (req,res)=>{

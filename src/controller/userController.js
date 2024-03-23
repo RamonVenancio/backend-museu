@@ -31,13 +31,13 @@ const login = async (data)=> {
         const secret = process.env.SECRET
 
         const token = jwt.sign({id:exists.id},'secret')
-        return{message:'Bem vindo ao sistema!', token:token}
+        return{message:'Bem vindo ao sistema!', token:token, statusCode: 200}
 
     } catch (error) {
         if(error instanceof Error){
-            return {message: error.message}
+            return{message: error.message , statusCode: 400}
         }else{
-            return{message: error.message}
+            return{message: error.message, statusCode: 400}
         }
     }
 }
